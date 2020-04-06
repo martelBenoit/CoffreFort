@@ -1,0 +1,28 @@
+version: '3'
+services:
+
+    api_users:
+        build:
+            context: ./api_users
+            dockerfile: Dockerfile
+        command: python -u app.py
+        ports:
+            - "5000:5000"
+        volumes:
+            - ./api_users:/app
+        links:
+            - mongodb
+
+    token_dealer:
+        build:
+            context: ./token_dealer
+            dockerfile: Dockerfile
+        command: python -u jwt.py
+        tty: true
+        ports:
+            - "5555:5555"
+        volumes:
+            - ./token_dealer:/app
+            
+    mongodb:
+        image: mongo:4.0.8
