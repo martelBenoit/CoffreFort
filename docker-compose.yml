@@ -25,4 +25,10 @@ services:
             - ./token_dealer:/app
             
     mongodb:
-        image: mongo:4.0.8
+        image: mongo:latest
+        restart: unless-stopped
+        command: mongod --auth
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: root
+            MONGO_INITDB_DATABASE: usersdb
