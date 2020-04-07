@@ -4,9 +4,10 @@ import hashlib
 from flask import(Flask, jsonify, request, g)
 import pymongo
 from jsonschema import validate
-
+import flasgger
 
 app = Flask(__name__)
+swagger = flasgger.Swagger(app)
 
 with open("./userSchem.json", "r") as f:
         schem = json.load(f)
@@ -32,6 +33,7 @@ def index():
                 )
 
 @app.route('/api/users', methods=['POST'])
+@flasgger.swag_from('docs/registration_user.yml')
 def new_user():
         print(request.is_json)
         content = request.get_json()
@@ -43,13 +45,13 @@ def new_user():
                         users.insert_one(user).inserted_id
                 except pymongo.errors.DuplicateKeyError as dke:
                         reason = content['LOGIN']+" is already used"
-                        return jsonify(registration="ko",reason=reason)
+                        return jsonify(registration=False,reason=reason)
                 except Exception as ex:
-                        return jsonify(registration="ko",reason="Database error")
+                        return jsonify(registration=False,reason="Database error")
                 else:
-                        return jsonify(registration="ok")
+                        return jsonify(registration=True)
         else:
-                return jsonify(registration="ko",reason="")
+                return jsonify(registration=False,reason="")
 
 
 def verify_scheme(test):

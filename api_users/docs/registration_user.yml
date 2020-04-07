@@ -1,0 +1,24 @@
+Register a new user in the app
+---
+parameters:
+  - name: login
+    in: path
+    type: string
+    required: true
+  - name: password
+    in: path
+    type: string
+    required: true
+responses:
+  200:
+    description: Returns true if the registration is successful
+    schema:
+      properties:
+        registration:
+          type: boolean
+          description: true if the registration is successful otherwise false
+          default: true
+        reason:
+          type: string
+          description: if the registration isn't successful, a short description of why is here
+          default: 
