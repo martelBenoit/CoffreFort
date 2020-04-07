@@ -2,7 +2,7 @@ import os
 import json
 import hashlib
 from flask import(Flask, jsonify, request, g)
-from pymongo import MongoClient
+import pymongo
 from jsonschema import validate
 
 
@@ -11,9 +11,10 @@ app = Flask(__name__)
 with open("./userSchem.json", "r") as f:
         schem = json.load(f)
 
-client = MongoClient('mongodb://root:root@mongodb:27017')
+client = pymongo.MongoClient('mongodb://root:root@mongodb:27017')
 db = client.usersdb
 users = db["users"]
+users.create_index([('login',pymongo.ASCENDING)],unique=True)
 
 @app.before_request
 def authenticate():
@@ -32,16 +33,23 @@ def index():
 
 @app.route('/api/users', methods=['POST'])
 def new_user():
-      print(request.is_json)
-      content = request.get_json()
-      if verify_scheme(content):
-        user = {'login':content['LOGIN'],
+        print(request.is_json)
+        content = request.get_json()
+        if verify_scheme(content):
+                user = {'login':content['LOGIN'],
                 'password':hashPassword(content['PASSWORD']),
                 }
-        user_id = users.insert_one(user).inserted_id
-        return jsonify(registration="ok",id=str(user_id))
-      else:
-        return jsonify(registration="ko")
+                try:
+                        users.insert_one(user).inserted_id
+                except pymongo.errors.DuplicateKeyError as dke:
+                        reason = content['LOGIN']+" is already used"
+                        return jsonify(registration="ko",reason=reason)
+                except Exception as ex:
+                        return jsonify(registration="ko",reason="Database error")
+                else:
+                        return jsonify(registration="ok")
+        else:
+                return jsonify(registration="ko",reason="")
 
 
 def verify_scheme(test):

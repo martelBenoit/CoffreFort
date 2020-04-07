@@ -38,3 +38,7 @@ Les fois suivantes uniquement faire (toujours sur la racine du repo git) :
 ```bash
 sudo docker-compose up
 ```
+## Aller sur le service mongo db une fois le projet lancé
+```bash
+sudo docker exec -it coffrefort_mongodb_1 bash
+```
