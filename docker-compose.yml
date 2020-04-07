@@ -12,13 +12,13 @@ services:
             - ./api_users:/app
         links:
             - mongodb
+            - tokendealer
 
-    token_dealer:
+    tokendealer:
         build:
             context: ./token_dealer
             dockerfile: Dockerfile
         command: python -u jwt.py
-        tty: true
         ports:
             - "5555:5555"
         volumes:

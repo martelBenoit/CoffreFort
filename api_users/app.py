@@ -5,9 +5,14 @@ from flask import(Flask, jsonify, request, g)
 import pymongo
 from jsonschema import validate
 import flasgger
+import zmq
 
 app = Flask(__name__)
 swagger = flasgger.Swagger(app)
+
+context = zmq.Context()
+socket = context.socket(zmq.REQ)
+socket.connect("tcp://tokendealer:5555")
 
 with open("./userSchem.json", "r") as f:
         schem = json.load(f)
@@ -110,6 +115,22 @@ def info(login):
         else:
                 return jsonify()
 
+@app.route('/api/token', methods=['GET'])
+def get_token():
+
+        user = users.find_one({"login":g.user})
+        if user != None:
+                if verifyPassword(g.password,user['password']):
+                        # appeler le serveur qui génère un token
+                        socket.send(b'Hello')
+                        message = (socket.recv()).decode('utf-8')
+                        return jsonify(token=message)
+                else:
+                        return jsonify(token="",reason="Incorrect password")
+        else:
+                return jsonify(token="",reason="Permission denied")
+        
+
 def verify_scheme(test):
         try:
                 validate(test,schem)
@@ -138,5 +159,3 @@ if __name__ == '__main__':
         with open("./testValidUser.json", "r") as f:
                 jsonTest = json.load(f)
         
-
-
