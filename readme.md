@@ -1,6 +1,8 @@
 # C'est le coffre fort !!!
 
-## Installation docker sur debian
+## Installation 
+
+### Installation de docker sur debian
 
 ```bash
 sudo apt update
@@ -18,7 +20,7 @@ apt-cache policy docker-ce
 sudo apt install docker-ce
 ```
 
-## Installation de docker-compose
+### Installation de docker-compose
 
 ```bash
 sudo curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
@@ -35,10 +37,27 @@ sudo docker-compose up
 ```
 
 Les fois suivantes uniquement faire (toujours sur la racine du repo git) :
+Si vous modifiez un Dockerfile il faut absolument refaire un build du projet sinon vos modifications ne seront pas prisent en comptes
 ```bash
 sudo docker-compose up
 ```
-## Aller sur le service mongo db une fois le projet lancé
+
+###Informations utiles
+
+## Pour aller sur le service mongo db une fois le projet lancé
 ```bash
 sudo docker exec -it coffrefort_mongodb_1 bash
 ```
+
+## Pour se rendre sur le front
+http://localhost:3000
+
+## API USER 
+PORT 5000
+
+## API APR
+PORT (a définir)
+
+## TOKEN DEALER
+PORT 5555
+
