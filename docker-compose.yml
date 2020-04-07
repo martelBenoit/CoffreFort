@@ -19,10 +19,19 @@ services:
             context: ./token_dealer
             dockerfile: Dockerfile
         command: python -u jwt.py
-        ports:
-            - "5555:5555"
         volumes:
             - ./token_dealer:/app
+
+    front:
+        build:
+            context: ./front
+            dockerfile: Dockerfile
+        command: npm start
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./front:/app/
+            - /app/node_modules
             
     mongodb:
         image: mongo:latest
