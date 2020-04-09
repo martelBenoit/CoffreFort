@@ -9,7 +9,7 @@ swagger = flasgger.Swagger(app)
 
 context = zmq.Context()
 socket = context.socket(zmq.REQ)
-socket.connect("tcp://tokendealer:5555")
+socket.connect("tcp://tokendealer:7000")
 
 @app.route('/api', methods=['GET'])
 def new_user():

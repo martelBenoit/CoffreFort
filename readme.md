@@ -42,22 +42,22 @@ sudo docker-compose up
 ```
 Si vous modifiez un Dockerfile il faut absolument refaire un build du projet sinon vos modifications ne seront pas prisent en comptes !
 
-### Informations utiles
+## Informations utiles
 
-## Pour aller sur le service mongo db une fois le projet lancé
+### Pour aller sur le service mongo db une fois le projet lancé
 ```bash
 sudo docker exec -it coffrefort_mongodb_1 bash
 ```
 
-## Pour se rendre sur le front
+### Pour se rendre sur le front
 http://localhost:3000
 
-## API USER 
+### API USER 
 Docs de l'API : http://localhost:5000/apidocs
 
-## API APR
+### API APR
 PORT 5200
 
-## TOKEN DEALER
+### TOKEN DEALER
 PORT 5555 : accessible uniquement par les APIs
 

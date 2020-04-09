@@ -12,7 +12,7 @@ swagger = flasgger.Swagger(app)
 
 context = zmq.Context()
 socket = context.socket(zmq.REQ)
-socket.connect("tcp://tokendealer:5555")
+socket.connect("tcp://tokendealer:7000")
 
 with open("./userSchem.json", "r") as f:
         schem = json.load(f)
@@ -130,8 +130,7 @@ def get_token():
         user = users.find_one({"login":g.user})
         if user != None:
                 if verifyPassword(g.password,user['password']):
-                        # appeler le serveur qui génère un token
-                        socket.send(b'Hello')
+                        socket.send_json({"login": g.user})
                         message = (socket.recv()).decode('utf-8')
                         return jsonify(token=message)
                 else:
@@ -165,6 +164,3 @@ def verifyPassword(password, hash):
 
 if __name__ == '__main__':
         app.run(host='0.0.0.0', debug=True)
-        with open("./testValidUser.json", "r") as f:
-                jsonTest = json.load(f)
-        
