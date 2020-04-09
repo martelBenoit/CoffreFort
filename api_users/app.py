@@ -30,13 +30,6 @@ def authenticate():
         else:
                 g.user = 'Anonymous'
 
-@app.route('/')
-def index():
-        info = "Welcome "+g.user
-        return jsonify(
-                message=info
-                )
-
 @app.route('/api/users', methods=['POST'])
 @flasgger.swag_from('docs/registration_user.yml')
 def new_user():
@@ -86,6 +79,7 @@ def change_password(login):
                 return jsonify(update=False,reason="Permission denied")
 
 @app.route('/api/users/<login>', methods=['DELETE'])
+@flasgger.swag_from('docs/delete_user.yml')
 def delete(login):
         if(g.user == login):
                 user = users.find_one({"login":login})
@@ -102,6 +96,7 @@ def delete(login):
 
 
 @app.route('/api/users/<login>', methods=['GET'])
+@flasgger.swag_from('docs/info_user.yml')
 def info(login):
         if(g.user == login):
                 user = users.find_one({"login":login})
@@ -116,6 +111,7 @@ def info(login):
                 return jsonify()
 
 @app.route('/api/auth', methods=['GET'])
+@flasgger.swag_from('docs/auth_user.yml')
 def auth():
 
         user = users.find_one({"login":g.user})
@@ -128,6 +124,7 @@ def auth():
                 return jsonify(auth=False,reason="Permission denied")
 
 @app.route('/api/token', methods=['GET'])
+@flasgger.swag_from('docs/get_token.yml')
 def get_token():
 
         user = users.find_one({"login":g.user})

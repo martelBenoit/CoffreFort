@@ -1,12 +1,13 @@
-Register a new user in the app
+Register user method
 ---
+description: Register a new user in the app
 parameters:
-  - name: login
-    in: path
+  - name: LOGIN
+    in: body
     type: string
     required: true
-  - name: password
-    in: path
+  - name: PASSWORD
+    in: body
     type: string
     required: true
 responses:
