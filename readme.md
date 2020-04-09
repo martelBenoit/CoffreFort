@@ -59,5 +59,5 @@ Docs de l'API : http://localhost:5000/apidocs
 PORT 5200
 
 ### TOKEN DEALER
-PORT 5555 : accessible uniquement par les APIs
+PORT 7000 : accessible uniquement par les APIs
 
