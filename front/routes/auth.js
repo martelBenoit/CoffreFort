@@ -14,22 +14,25 @@ router.post('/', function(req, res) {
     url = 'http://' + login + ':' + password + '@apiusers:5000/api/auth';
 
     request({url}, function (error, response, body) {
-      console.log(body)
       result = JSON.parse(body)
-      console.log(result.auth)
-      console.log(result.reason)
+      if(result.auth == true){
+        req.session.loggedin = true;
+        req.session.login = login;
+        res.redirect('/home');
+        res.end();
+      }
+      else{
+        res.send(result.reason);
+        res.end();
+      }
     });
-
-  
-    console.log('end request')
-
-
   }
 
   else{
-  	res.send('Please enter username and password !');
+    res.send('Please enter username and password !');
+    res.end();
   }
-  res.end();
+  
 });
 
 module.exports = router;

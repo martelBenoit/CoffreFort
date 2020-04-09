@@ -12,6 +12,12 @@ var homeRouter = require('./routes/home');
 
 var app = express();
 
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -28,11 +34,7 @@ app.use('/auth',authRouter);
 app.use('/home', homeRouter);
 app.use('/users', usersRouter);
 
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
