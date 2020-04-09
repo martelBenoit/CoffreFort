@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-    api_users:
+    apiusers:
         build:
             context: ./api_users
             dockerfile: Dockerfile
@@ -32,6 +32,8 @@ services:
         volumes:
             - ./front:/app/
             - /app/node_modules
+        links:
+            - apiusers
             
     mongodb:
         image: mongo:latest

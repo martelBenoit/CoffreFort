@@ -115,6 +115,18 @@ def info(login):
         else:
                 return jsonify()
 
+@app.route('/api/auth', methods=['GET'])
+def auth():
+
+        user = users.find_one({"login":g.user})
+        if user != None:
+                if verifyPassword(g.password,user['password']):
+                        return jsonify(auth=True)
+                else:
+                        return jsonify(auth=False,reason="Incorrect password")
+        else:
+                return jsonify(auth=False,reason="Permission denied")
+
 @app.route('/api/token', methods=['GET'])
 def get_token():
 
