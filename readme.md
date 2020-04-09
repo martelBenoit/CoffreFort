@@ -37,12 +37,12 @@ sudo docker-compose up
 ```
 
 Les fois suivantes uniquement faire (toujours sur la racine du repo git) :
-Si vous modifiez un Dockerfile il faut absolument refaire un build du projet sinon vos modifications ne seront pas prisent en comptes
 ```bash
 sudo docker-compose up
 ```
+Si vous modifiez un Dockerfile il faut absolument refaire un build du projet sinon vos modifications ne seront pas prisent en comptes !
 
-###Informations utiles
+### Informations utiles
 
 ## Pour aller sur le service mongo db une fois le projet lancé
 ```bash
@@ -53,11 +53,11 @@ sudo docker exec -it coffrefort_mongodb_1 bash
 http://localhost:3000
 
 ## API USER 
-PORT 5000
+Docs de l'API : http://localhost:5000/apidocs
 
 ## API APR
-PORT (a définir)
+PORT 5200
 
 ## TOKEN DEALER
-PORT 5555
+PORT 5555 : accessible uniquement par les APIs
 
