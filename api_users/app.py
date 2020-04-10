@@ -131,8 +131,8 @@ def get_token():
         if user != None:
                 if verifyPassword(g.password,user['password']):
                         socket.send_json({"login": g.user})
-                        message = (socket.recv()).decode('utf-8')
-                        return jsonify(token=message)
+                        message = socket.recv_json()
+                        return jsonify(token=message['token'])
                 else:
                         return jsonify(token="",reason="Incorrect password")
         else:

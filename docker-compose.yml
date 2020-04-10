@@ -30,7 +30,7 @@ services:
         build:
             context: ./token_dealer
             dockerfile: Dockerfile
-        command: python -u jwt.py
+        command: python -u tokendealer.py
         volumes:
             - ./token_dealer:/app
 
