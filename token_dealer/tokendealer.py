@@ -1,6 +1,7 @@
 import time
 import zmq
 import jwt
+from datetime import datetime
 
 
 if __name__ == "__main__":
@@ -16,12 +17,21 @@ if __name__ == "__main__":
 		# interpreter le message recu, générer un token et le renvoyer ou alors répondre oui ou non si le token recu est valide
 		message = socket.recv_json()
 		if message['login'] is not None:
-			print (message['login'])
-			encoded_jwt = jwt.encode({'login': message['login']}, 'secret', algorithm='HS256')
+			
+			encoded_jwt = jwt.encode({'login': message['login'],'datetime':datetime.now()}, 'secret', algorithm='HS256')
 			token = encoded_jwt.decode("utf-8")
-			tokens.append({message['login'],token})
-			print(token)
+
+			for obj in tokens:
+				if obj[0] == message['login']:
+					obj[1] = token
+				else:
+					token.append([message['login'],token])
+
 			socket.send_json({"token":token})
-		else:
-			socket.send_json({"token":""})
+
+		#if message['token'] is not None:
+			#decoded = jwt.decode(message['token'],'secret',algorithm='HS256')
+
+
+			
 		
