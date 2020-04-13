@@ -34,6 +34,7 @@ def authenticate():
 @flasgger.swag_from('docs/registration_user.yml')
 def new_user():
         content = request.get_json()
+        print(content)
         if verify_scheme(content):
                 user = {'login':content['LOGIN'],
                 'password':hashPassword(content['PASSWORD']),
