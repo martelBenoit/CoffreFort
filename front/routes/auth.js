@@ -11,13 +11,14 @@ router.post('/', function(req, res) {
 
     console.log('login and password filled')
 
-    url = 'http://' + login + ':' + password + '@apiusers:5000/api/auth';
+    url = 'http://' + login + ':' + password + '@apiusers:5000/api/token';
 
     request({url}, function (error, response, body) {
       result = JSON.parse(body)
-      if(result.auth == true){
+      if(result.token != ""){
         req.session.loggedin = true;
         req.session.login = login;
+        req.session.token = result.token
         res.redirect('/home');
         res.end();
       }

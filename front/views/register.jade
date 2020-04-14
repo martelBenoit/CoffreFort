@@ -1,9 +1,9 @@
 extends layout
 
 block content
-	h1 Login form
+	h1 Register form
 	form(
-	action='auth'
+	action='register'
 	method='POST'
 	)
 		input(
@@ -22,4 +22,4 @@ block content
 		type='submit'
 		)
 
-	a(href="register") Pas de compte ? Inscrivez vous !
+	a(href="/") Vous avez déjà un compte ? Connectez vous !
