@@ -34,6 +34,8 @@ Pour lancer le projet la première fois (sur la racine du repo git) :
 ```bash
 sudo docker-compose build
 sudo docker-compose up
+# Pour arrêter les services 
+sudo docker-compose down 
 ```
 
 Les fois suivantes uniquement faire (toujours sur la racine du repo git) :
