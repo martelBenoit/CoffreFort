@@ -18,9 +18,9 @@ def verify_token():
         message = socket.recv_json()
 
         if message['valid']:
-                return jsonify(pr:"La ressource protégée est ici")
+                return jsonify(pr="La ressource protégée est ici")
         else:
-                return jsonify(pr:"",info="wrong token")
+                return jsonify(pr="",info="wrong token")
 
 
 if __name__ == '__main__':
