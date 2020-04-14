@@ -19,8 +19,8 @@ front/views/register.jade
     - ```front/routes/home.js & front/views/home.jade```
 - Possibilité de se déconnecter :
     - renvoi vers une route pour se déconnecter par ex:```\logout``` 
-    - supression du cookie de session dans le GET du ```\logout``` 
-    - redirection page index
+    - supression du cookie de session dans le traitement du GET du ```\logout``` 
+    - redirection page index a la fin de la supression du cookie de session
 
 ## Yoann
 à définir
