@@ -13,10 +13,14 @@ socket.connect("tcp://tokendealer:7000")
 
 @app.route('/api/ressource', methods=['GET'])
 def verify_token():
-
-        socket.send_json({"validate_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6ImJtYXJ0ZWwiLCJkYXRldGltZSI6IjIwMjAtMDQtMTMgMTI6NTc6MzQuMTA1NjcxIn0.NOkBVFqC4jpf0-PSa4rChjNnXlI-_OGP_PjCl-9wQS0"})
+        token = request.args.get('token', default = '*', type = str)
+        socket.send_json({"validate_token": token})
         message = socket.recv_json()
-        return jsonify(valid=message['valid'])
+
+        if message['valid']:
+                return jsonify(pr:"La ressource protégée est ici")
+        else:
+                return jsonify(pr:"",info="wrong token")
 
 
 if __name__ == '__main__':
