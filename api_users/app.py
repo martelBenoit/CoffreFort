@@ -10,6 +10,7 @@ import zmq
 app = Flask(__name__)
 swagger = flasgger.Swagger(app)
 
+# Artifacts used to connect to the tokendealer service
 context = zmq.Context()
 socket = context.socket(zmq.REQ)
 socket.connect("tcp://tokendealer:7000")
@@ -124,6 +125,8 @@ def auth():
         else:
                 return jsonify(auth=False,reason="Permission denied")
 
+# Recepteur de l'API utilise lors de la connexion depuis la page d'accueil
+# Fait office d'authentification et de generation de token
 @app.route('/api/token', methods=['GET'])
 @flasgger.swag_from('docs/get_token.yml')
 def get_token():
@@ -139,6 +142,19 @@ def get_token():
         else:
                 return jsonify(token="",reason="Permission denied")
         
+@app.route('/api/logout', methods=['POST'])
+# @flasgger.swag_from('docs/logout.yml')
+def logout():
+        content = request.get_json()
+        user = users.find_one({"login":content["LOGIN"]})
+        if users != None :
+                socket.send_json({"logout": content["TOKEN"]})
+                message = socket.recv_json()
+                return jsonify(logout=True)
+        else:
+                return jsonify(logout=False,reason="Unknown user")
+
+
 
 def verify_scheme(test):
         try:

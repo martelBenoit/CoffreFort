@@ -10,6 +10,7 @@ var authRouter = require('./routes/auth');
 var homeRouter = require('./routes/home');
 var resourceRouter = require('./routes/resource');
 var registerRouter = require('./routes/register');
+var logoutRouter = require('./routes/logout')
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use('/auth',authRouter);
 app.use('/home', homeRouter);
 app.use('/resource', resourceRouter);
 app.use('/register', registerRouter);
+app.use('/logout',logoutRouter);
 
 
 

@@ -42,7 +42,7 @@ Les fois suivantes uniquement faire (toujours sur la racine du repo git) :
 ```bash
 sudo docker-compose up
 ```
-Si vous modifiez un Dockerfile il faut absolument refaire un build du projet sinon vos modifications ne seront pas prisent en comptes !
+Si vous modifiez un Dockerfile il faut absolument refaire un build du projet sinon vos modifications ne seront pas prises en comptes !
 
 ## Informations utiles
 

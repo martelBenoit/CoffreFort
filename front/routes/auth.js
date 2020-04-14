@@ -3,6 +3,7 @@ var request = require('request');
 
 var router = express.Router();
 
+// Fonction redirigeant l'appel d'authentification via le form vers l'API users
 router.post('/', function(req, res) {
   var login = req.body.login;
   var password = req.body.password;
@@ -11,6 +12,7 @@ router.post('/', function(req, res) {
 
     console.log('login and password filled')
 
+    // ATTENTION : Bien prendre en compte que la requete est faite sur api/token
     url = 'http://' + login + ':' + password + '@apiusers:5000/api/token';
 
     request({url}, function (error, response, body) {
