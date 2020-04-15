@@ -1,5 +1,6 @@
 var express = require('express');
 var request = require('request');
+// var http = require('http')
 var router = express.Router();
 
 
@@ -15,18 +16,13 @@ router.post('/', function(req, res) {
   
     if(login && password){
 
-      var options = {
-        uri: 'http://apiusers:5000/api/users',
-        method: 'POST',
-        json: {
-          "LOGIN": login,
-          "PASSWORD": password
-        }
-      };
       
-      request(options, function (error, response, body) {
+      request.post('http://apiusers:5000/api/users',{json: {
+        "LOGIN": login,
+        "PASSWORD": password
+      }}, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            result = JSON.parse(body)
+            result = body
             if(result.registration == true){
               res.redirect('/');
               res.end();
