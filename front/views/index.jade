@@ -1,25 +1,17 @@
 extends layout
 
 block content
-	h1 Login form
-	form(
-	action='auth'
-	method='POST'
-	)
-		input(
-		type='text'
-		name='login'
-		placeholder='login'
-		required
-		)
-		input(
-		type='password'
-		name='password'
-		placeholder='password'
-		required
-		)
-		input(
-		type='submit'
-		)
-
-	a(href="register") Pas de compte ? Inscrivez vous !
+	div.container
+		h1 Login form
+		form(action='auth', method='POST')
+			div.form-group
+				label Login
+				input.form-control(type='text', name='login', placeholder='Enter your login', id='login', required)
+			div.form-group
+				label Password
+				input.form-control(type='password', name='password', placeholder='Enter your password', required)
+			input.btn.btn-primary(type='submit', value='Log in')
+		br
+		a(href="register") Don't have an account yet ? Create one here !
+	script(type='text/javascript').
+		document.getElementById('login').focus()
