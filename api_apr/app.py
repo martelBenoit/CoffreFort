@@ -3,6 +3,7 @@ import json
 from flask import(Flask, jsonify, request, g)
 import flasgger
 import zmq
+import base64
 
 app = Flask(__name__)
 swagger = flasgger.Swagger(app)
@@ -25,7 +26,8 @@ def verify_token():
 
                 # si le message de retour indique que le token est valide alors on retourne la ressource protégée
                 if message['valid']:
-                        return jsonify(pr="La ressource protégée est ici")
+                        with open("secret.jpg", "rb") as img_file :
+                                return jsonify(pr=base64.b64encode(img_file.read()).decode('utf-8'))
                 # sinon on envoi pas la ressource et on dit pourquoi
                 else:
                         return jsonify(pr="",info="wrong token")

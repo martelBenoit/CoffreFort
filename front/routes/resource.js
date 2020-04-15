@@ -18,7 +18,8 @@ router.get('/', function(req, res) {
         // si c'est ok alors on affiche la ressource protégé recu en retour d'appel sinon on afficher un message ou alors on redirige vers la page home
         if(resultat.data.pr){
         
-          res.send(resultat.data.pr);
+          
+          res.send("<img src='data:image/jpeg;base64, " + resultat.data.pr + "'/>");
           res.end();
         }
         else{
