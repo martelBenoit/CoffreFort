@@ -1,17 +1,23 @@
 extends layout
 
+block head
+	link(rel='stylesheet', href='/stylesheets/signin.css')
+
 block content
-	div.container
-		h1 Register form
-		form(action='register', method='POST')
-			div.form-group
-				label Login
-				input.form-control(type='text', name='login', placeholder='Enter your login', id='login', required)
-			div.form-group
-				label Password
-				input.form-control(type='password', name='password', placeholder='Enter your password',	required)
-			input.btn.btn-primary(type='submit', value='Create account')
-		br
-		a(href="/") You already have an account  ? Log in !
+	div.text-center
+		
+		form.form-signin(action='register', method='POST')
+			img.mb-4(src='https://image.flaticon.com/icons/svg/16/16968.svg', alt='', width='72', height='72')
+			h1.h3.mb-3.font-weight-normal Please sign up
+			label.sr-only Login
+			input.form-control(type='text', name='login', placeholder='Enter your login', id='login', required autofocus)
+			label.sr-only Password
+			input.form-control(type='password', name='password', placeholder='Enter your password', required)
+			
+			button.btn.btn-lg.btn-block.btn-success(type='submit') Sign up
+
+		a.mt-5.mb-3(href="/") Don't have an account yet ? Create one here !
+		
+	
 	script(type='text/javascript').
 		document.getElementById('login').focus()

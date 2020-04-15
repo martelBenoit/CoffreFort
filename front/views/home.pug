@@ -1,10 +1,13 @@
 extends layout
 
+block header
+	include navbar
+
 block content
-	div.container
-		h1 Welcome #{title} !
-		h2 This is the home page
-		a.btn.btn-primary(href="resource") Access the resource
-		br
-		br
-		a.btn.btn-danger(href="logout") Log out
+	section.jumbotron.text-center.bg-white
+		div.container
+			h1.display-4 Welcome #{title} !
+			p.lead.text-muted Home
+	.bg-light
+		.container.text-center
+			a.btn.btn-primary.mt-5.mb-5(href="resource") Access the resource
