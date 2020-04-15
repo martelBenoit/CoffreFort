@@ -15,12 +15,16 @@ context = zmq.Context()
 socket = context.socket(zmq.REQ)
 socket.connect("tcp://tokendealer:7000")
 
+# Chargement du schéma de validation du json
 with open("./userSchem.json", "r") as f:
         schem = json.load(f)
 
+# Connection à la base de donnée
 client = pymongo.MongoClient('mongodb://root:root@mongodb:27017')
 db = client.usersdb
+# Récupération de la collection users si elle existe sinon création
 users = db["users"]
+# Création d'un index sur le champs login permettant au login d'être unique
 users.create_index([('login',pymongo.ASCENDING)],unique=True)
 
 @app.before_request
@@ -112,19 +116,6 @@ def info(login):
         else:
                 return jsonify()
 
-@app.route('/api/auth', methods=['GET'])
-@flasgger.swag_from('docs/auth_user.yml')
-def auth():
-
-        user = users.find_one({"login":g.user})
-        if user != None:
-                if verifyPassword(g.password,user['password']):
-                        return jsonify(auth=True)
-                else:
-                        return jsonify(auth=False,reason="Incorrect password")
-        else:
-                return jsonify(auth=False,reason="Permission denied")
-
 # Recepteur de l'API utilise lors de la connexion depuis la page d'accueil
 # Fait office d'authentification et de generation de token
 @app.route('/api/token', methods=['GET'])
@@ -145,7 +136,7 @@ def get_token():
                         return jsonify(token="",reason="Incorrect password")
         else:
                 return jsonify(token="",reason="Permission denied")
-        
+           
 @app.route('/api/logout', methods=['POST'])
 @flasgger.swag_from('docs/logout.yml')
 def logout():
@@ -158,8 +149,7 @@ def logout():
         else:
                 return jsonify(logout=False,reason="Unknown user")
 
-
-
+# Permet de vérifier le schéma json d'inscription
 def verify_scheme(test):
         try:
                 validate(test,schem)
@@ -169,15 +159,21 @@ def verify_scheme(test):
         else:
                 return True
 
+# Permet d'hasher le mot de passe passé en paramètre
 def hashPassword(password):
         salt = os.urandom(32)
         key = hashlib.pbkdf2_hmac('sha256',password.encode('utf-8'),salt,100000)
         return salt+key
 
+# On vérifie si le mot de passe est correcte
 def verifyPassword(password, hash):
+        # Récupération du sel du mot de passe hashé en bdd 
         salt = hash[:32]
+        # Hash du mot de passe passé en paramètre en utilisant le hash du mot de passe en bdd  
         keyPassword = hashlib.pbkdf2_hmac('sha256',password.encode('utf-8'),salt,100000)
+        # Récupération du hash du mot de passe en bdd 
         keyHash = hash[32:]
+        # Comparaison des deux hashs 
         if keyPassword == keyHash:
                 return True
         else:
