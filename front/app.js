@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session')
 
+// la définition des routes
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var homeRouter = require('./routes/home');
@@ -14,6 +15,7 @@ var logoutRouter = require('./routes/logout')
 
 var app = express();
 
+// définition de la session 
 app.use(session({
 	secret: 'secret',
 	resave: true,
@@ -30,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+// définition des routes à utiliser
 app.use('/', indexRouter);
 app.use('/auth',authRouter);
 app.use('/home', homeRouter);
