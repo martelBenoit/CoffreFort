@@ -27,4 +27,4 @@ front/views/register.jade
 
 - [x] ajout d'un framework css (bootstrap ou materialize ) pour le front
 
-- [ ] revue du code python (partout)
+- [x] revue du code python (partout)
