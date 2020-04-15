@@ -1,4 +1,4 @@
-FROM node:13.12.0-alpine3.10
+FROM node:13.13.0-alpine3.11
 
 WORKDIR /app
 ADD package.json .
