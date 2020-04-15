@@ -17,18 +17,22 @@ socket.connect("tcp://tokendealer:7000")
 def verify_token():
 		# on récupère le token depuis le paramètre token de notre requête
         token = request.args.get('token', default = '*', type = str)
-        # envoi au tokendealer du token pour validation
-        socket.send_json({"validate_token": token})
-        # réception de la réponse du token dealer
-        message = socket.recv_json()
+        try:
+                # envoi au tokendealer du token pour validation
+                socket.send_json({"validate_token": token})
+                # réception de la réponse du token dealer
+                message = socket.recv_json()
 
-        # si le message de retour indique que le token est valide alors on retourne la ressource protégée
-        if message['valid']:
-                return jsonify(pr="La ressource protégée est ici")
-        # sinon on envoi pas la ressource et on dit pourquoi
-        else:
-                return jsonify(pr="",info="wrong token")
+                # si le message de retour indique que le token est valide alors on retourne la ressource protégée
+                if message['valid']:
+                        return jsonify(pr="La ressource protégée est ici")
+                # sinon on envoi pas la ressource et on dit pourquoi
+                else:
+                        return jsonify(pr="",info="wrong token")
+        except Exception as err:
+                return jsonify(pr="",info="unable to contact the token server")
 
+        
 # le serveur se lance et tourne sur localhost:5200
 if __name__ == '__main__':
         app.run(host='0.0.0.0', port=5200, debug=True)

@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
           res.end();
         } 
         else{
-          res.send(result.data.reason);
+          res.send(resultat.data.reason);
           res.end();
         } 
       } catch (error) {
