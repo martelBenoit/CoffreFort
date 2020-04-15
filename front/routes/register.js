@@ -38,11 +38,11 @@ router.post('/', function(req, res) {
             res.end();
           }
           else{
-            res.send(resultat.data.reason);
+            res.render('register', { error: resultat.data.reason });
             res.end();
           }
         } catch (error) {
-          res.send(error)
+          res.render('register', { error: error });
           res.end()
         }
       }
@@ -50,7 +50,7 @@ router.post('/', function(req, res) {
   
     }
     else{
-        res.send("Please enter login and password");
+        res.render('register', "Please enter login and password");
         res.end();
     } 
     

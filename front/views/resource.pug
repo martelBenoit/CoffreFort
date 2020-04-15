@@ -1,0 +1,17 @@
+extends layout
+
+block header
+    include navbar
+
+block content
+    section.jumbotron.text-center.bg-white
+        div.container
+            h1.display-4 Resource
+    .bg-light
+        .container.text-center
+            if image
+                h2.mt-5 Here is the resource!
+                img.mt-3.mb-5(src= image)
+
+block footer
+    include footer

@@ -29,22 +29,20 @@ router.post('/', function(req, res) {
           res.end();
         } 
         else{
-          res.send(resultat.data.reason);
+          res.render('index', { error: resultat.data.reason });
           res.end();
         } 
       } catch (error) {
-        console.error(error)
-        res.send(error)
+      
+        res.render('index', { error: error });
         res.end()
       }
     }
     getAuth()
   } 
 
-
-
   else{
-    res.send('Please enter username and password !');
+    res.render('index', { error: 'Please enter username and password !' });
     res.end();
   }
   
