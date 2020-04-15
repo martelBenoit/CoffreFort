@@ -1,0 +1,17 @@
+Get resource
+---
+  description: Give resource if the token is valide
+  parameters:
+    - name: TOKEN
+      in: body
+      type: string
+      required: true
+  responses:
+    200:
+      description: Returns the image encoded in base64 if the token is valid
+      schema:
+        properties:
+          pr:
+            type: string
+            description: base64 encoded string if the token is valid
+      

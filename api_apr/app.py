@@ -15,6 +15,7 @@ socket.connect("tcp://tokendealer:7000")
 
 # une seule route GET permettant d'accéder à la ressource 
 @app.route('/api/ressource', methods=['GET'])
+@flasgger.swag_from('docs/verify_token.yml')
 def verify_token():
 		# on récupère le token depuis le paramètre token de notre requête
         token = request.args.get('token', default = '*', type = str)

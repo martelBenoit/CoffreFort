@@ -58,7 +58,7 @@ http://localhost:3000
 Docs de l'API : http://localhost:5000/apidocs
 
 ### API APR
-PORT 5200
+Docs de l'API : http://localhost:5200/apidocs
 
 ### TOKEN DEALER
 PORT 7000 : accessible uniquement par les APIs

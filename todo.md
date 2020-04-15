@@ -21,7 +21,7 @@ front/views/register.jade
 - [x] ajout d'une image sur le docker de l'api apr, charger cette image au démarrage de l'api apr, passer en base64 si la ressource est demandé et traiter la réception côté front (app.py du dossier api_apr et resource.js du dossier front)
 
 
-- [ ] faire l'apidoc pour l'api apr (reprendre ce qui a été fait côté api user)
+- [x] faire l'apidoc pour l'api apr (reprendre ce qui a été fait côté api user)
 
 ## Loïc
 
