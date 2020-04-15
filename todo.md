@@ -1,10 +1,7 @@
 # Ce qu'il reste a faire :
 
-- ajout d'un framework css (bootstrap ou materialize ) pour le front
 - ajout des infos de l'utilisateur sur la page home (pas nécessaire mais pourquoi pas)
-- ajout d'une image sur le docker de l'api apr, charger cette image au démarrage de l'api apr, passer en base64 si la ressource est demandé et traiter la réception côté front (app.py du dossier api_apr et resource.js du dossier front) 
 - revue du code python (partout)
-- faire l'apidoc pour l'api apr (reprendre ce qui a été fait côté api user)
 
 ## Benoît 
 Possibilité de faire une inscription depuis le front
@@ -23,12 +20,15 @@ front/views/register.jade
     - redirection page index a la fin de la supression du cookie de session
 
 ## Yoann
-à définir
 
+-   ajout d'une image sur le docker de l'api apr, charger cette image au démarrage de l'api apr, passer en base64 si la ressource est demandé et traiter la réception côté front (app.py du dossier api_apr et resource.js du dossier front)
+
+
+- faire l'apidoc pour l'api apr (reprendre ce qui a été fait côté api user)
 
 ## Loïc
-à définir
 
+- ajout d'un framework css (bootstrap ou materialize ) pour le front
 
 
 
