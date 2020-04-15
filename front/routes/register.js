@@ -1,6 +1,6 @@
 var express = require('express');
-var request = require('request');
-// var http = require('http')
+const axios = require('axios');
+
 var router = express.Router();
 
 
@@ -21,27 +21,32 @@ router.post('/', function(req, res) {
   
     if(login && password){
 
-      //appel à l'API user pour s'enregistrer
-      request.post('http://apiusers:5000/api/users',{json: {
-        "LOGIN": login,
-        "PASSWORD": password
-      }}, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            result = body
-            if(result.registration == true){
-              res.redirect('/');
-              res.end();
-            }
-            else{
-              res.send(result.reason); // sinon on affiche un message
-              res.end();
-            }
-        }
-        else{
-            res.send("Invalid post");
+      const options = {
+        headers: {'Content-Type': 'application/json'}
+      };
+
+      const register = async () => {
+        try {
+          const resultat = await axios.post('http://apiusers:5000/api/users',
+          {
+            "LOGIN": login,
+            "PASSWORD": password
+          },options
+          )
+          if(resultat.data.registration == true){
+            res.redirect('/');
             res.end();
-        } 
-      });
+          }
+          else{
+            res.send(resultat.data.reason);
+            res.end();
+          }
+        } catch (error) {
+          res.send(error)
+          res.end()
+        }
+      }
+      register()
   
     }
     else{

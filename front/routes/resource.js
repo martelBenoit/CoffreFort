@@ -1,5 +1,5 @@
 var express = require('express');
-var request = require('request');
+const axios = require('axios');
 
 var router = express.Router();
 
@@ -12,19 +12,26 @@ router.get('/', function(req, res) {
     // appel à l'API APR avec le token de l'utilisateur stocké dans le cookie de session
     url = 'http://apiapr:5200/api/ressource?token='+req.session.token;
 
-    request({url}, function (error, response, body) {
-      result = JSON.parse(body)
-      // si c'est ok alors on affiche la ressource protégé recu en retour d'appel sinon on afficher un message ou alors on redirige vers la page home
-      if(result.pr){
-       
-        res.send(result.pr);
-        res.end();
+    const getRes = async () => {
+      try {
+        const resultat = await axios.get(url)
+        // si c'est ok alors on affiche la ressource protégé recu en retour d'appel sinon on afficher un message ou alors on redirige vers la page home
+        if(resultat.data.pr){
+        
+          res.send(resultat.data.pr);
+          res.end();
+        }
+        else{
+          res.send(resultat.data.info);
+          res.end();
+        }
+      } catch (error) {
+        console.error(error)
+        res.send(error)
+        res.end()
       }
-      else{
-        res.send(result.info);
-        res.end();
-      }
-    });
+    }
+    getRes()
   }
 
   else{
