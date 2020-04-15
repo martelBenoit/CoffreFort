@@ -147,7 +147,7 @@ def get_token():
                 return jsonify(token="",reason="Permission denied")
         
 @app.route('/api/logout', methods=['POST'])
-# @flasgger.swag_from('docs/logout.yml')
+@flasgger.swag_from('docs/logout.yml')
 def logout():
         content = request.get_json()
         user = users.find_one({"login":content["LOGIN"]})
