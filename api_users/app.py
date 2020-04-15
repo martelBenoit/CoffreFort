@@ -150,7 +150,7 @@ def logout():
         if users != None :
                 socket.send_json({"logout": content["TOKEN"]})
                 message = socket.recv_json()
-                return jsonify(logout=True)
+                return jsonify(logout=message['logout'])
         else:
                 return jsonify(logout=False,reason="Unknown user")
 

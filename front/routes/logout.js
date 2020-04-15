@@ -14,15 +14,15 @@ router.get('/', function(req, res){
 
           // La requete est faite vers /api/logout et retourne la validation ou non de la deconnexion
           // et la raison en cas d'echec
-          request.post('http://apiuser:5000/api/logout',{json: {
+          request.post('http://apiusers:5000/api/logout',{json: {
             "LOGIN": login,
             "TOKEN": token
           }}, function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                result = JSON.parse(body)
+                result = body;
                 if(result.logout == true){
                   req.session.loggedin = false;
-                  res.redirect('/index');
+                  res.redirect('/');
                   res.end();
                 }
                 else{
@@ -37,6 +37,10 @@ router.get('/', function(req, res){
           });
 
     }
+    else{
+      res.send("already deconnected");
+      res.end();
+    } 
 
 });
 
