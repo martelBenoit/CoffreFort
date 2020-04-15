@@ -1,8 +1,5 @@
 # Ce qu'il reste a faire :
 
-- ajout des infos de l'utilisateur sur la page home (pas nécessaire mais pourquoi pas)
-- revue du code python (partout)
-
 ## Benoît 
 - [x] Possibilité de faire une inscription depuis le front
 ```
@@ -28,7 +25,6 @@ front/views/register.jade
 
 ## Loïc
 
-- [ ] ajout d'un framework css (bootstrap ou materialize ) pour le front
+- [x] ajout d'un framework css (bootstrap ou materialize ) pour le front
 
-
-
+- [ ] revue du code python (partout)
