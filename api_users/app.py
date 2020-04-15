@@ -134,9 +134,13 @@ def get_token():
         user = users.find_one({"login":g.user})
         if user != None:
                 if verifyPassword(g.password,user['password']):
-                        socket.send_json({"login": g.user})
-                        message = socket.recv_json()
-                        return jsonify(token=message['token'])
+                        try:
+                                socket.send_json({"login": g.user})
+                                message = socket.recv_json()
+                                return jsonify(token=message['token'])
+                        except Exception as err:
+                                return jsonify(token="",reason="unable to contact the token server")
+                        
                 else:
                         return jsonify(token="",reason="Incorrect password")
         else:
