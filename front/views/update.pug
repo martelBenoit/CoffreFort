@@ -1,0 +1,27 @@
+extends layout
+
+block header
+	include navbar
+
+block content
+
+	section.jumbotron.text-center.bg-white
+		div.container
+			h1.display-4 Update your password
+			
+	.bg-light
+		.container.text-center
+			form(action='update', method='POST')
+				label.sr-only Current password
+				input.form-control(type='password',name='current', placeholder="Current password",required)
+				label.sr-only New password
+				input.form-control(type='password',name='new',placeholder="New password",required)
+				label.sr-only Confirm new password
+				input.form-control(type='password',name='verif',placeholder="Confirm password",required)
+
+				button.btn.btn-lg.btn-block.btn-success(type='submit') Update password
+			p.mt-3.mb-3.text-danger #{error}
+			p.mt-3.mb-3.text-success #{success}
+
+block footer
+	include footer
