@@ -2,10 +2,30 @@ import time
 import zmq
 import jwt
 import json
+import random
+import string
 from datetime import datetime
 from datetime import timedelta  
 
+def randomKey():
+    randomSource = string.ascii_letters + string.digits + string.punctuation
+    key = random.choice(string.ascii_lowercase)
+    key += random.choice(string.ascii_uppercase)
+    key += random.choice(string.digits)
+    key += random.choice(string.punctuation)
+
+    for i in range(6):
+        key += random.choice(randomSource)
+
+    keyList = list(key)
+    random.SystemRandom().shuffle(keyList)
+    key = ''.join(keyList)
+    return key
+
 if __name__ == "__main__":
+
+	# on génére un string random pour la clé
+    key = randomKey()
 
 	# liste des tokens générés
 	tokens = []
@@ -22,7 +42,7 @@ if __name__ == "__main__":
 		# si le message contient la clé 'login' -> on tente de générer un nouveau token
 		if 'login' in message:
 			# on génère un token avec comme valeur le login de l'utilisateur, et la date de création
-			encoded_jwt = jwt.encode({'login':message['login'],'datetime':datetime.now().__str__()}, 'secret', algorithm='HS256')
+			encoded_jwt = jwt.encode({'login':message['login'],'datetime':datetime.now().__str__()}, key, algorithm='HS256')
 
 			# on passe le token en utf8
 			token = encoded_jwt.decode("utf-8")
@@ -47,7 +67,7 @@ if __name__ == "__main__":
 				
 			try:
 				# on décode le token
-				decoded = jwt.decode(message['validate_token'],'secret',algorithm='HS256')
+				decoded = jwt.decode(message['validate_token'],key,algorithm='HS256')
 				
 				# on regarde si le token se trouve dans notre lisete de token
 				if [decoded['login'],message['validate_token']] in tokens:
@@ -67,7 +87,7 @@ if __name__ == "__main__":
 		# Effacement du token pour la deconnexion
 		if 'logout' in message:
 			try:
-				decoded = jwt.decode(message['logout'],'secret',algorithm='HS256')
+				decoded = jwt.decode(message['logout'],key,algorithm='HS256')
 			
 				if [decoded['login'],message['logout']] in tokens:
 					datetime_object = datetime.strptime(decoded['datetime'], '%Y-%m-%d %H:%M:%S.%f')
