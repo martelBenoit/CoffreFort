@@ -8,24 +8,24 @@ from datetime import datetime
 from datetime import timedelta  
 
 def randomKey():
-    randomSource = string.ascii_letters + string.digits + string.punctuation
-    key = random.choice(string.ascii_lowercase)
-    key += random.choice(string.ascii_uppercase)
-    key += random.choice(string.digits)
-    key += random.choice(string.punctuation)
+	randomSource = string.ascii_letters + string.digits + string.punctuation
+	key = random.choice(string.ascii_lowercase)
+	key += random.choice(string.ascii_uppercase)
+	key += random.choice(string.digits)
+	key += random.choice(string.punctuation)
 
-    for i in range(6):
-        key += random.choice(randomSource)
+	for i in range(6):
+		key += random.choice(randomSource)
 
-    keyList = list(key)
-    random.SystemRandom().shuffle(keyList)
-    key = ''.join(keyList)
-    return key
+	keyList = list(key)
+	random.SystemRandom().shuffle(keyList)
+	key = ''.join(keyList)
+	return key
 
 if __name__ == "__main__":
 
 	# on génére un string random pour la clé
-    key = randomKey()
+	key = randomKey()
 
 	# liste des tokens générés
 	tokens = []
