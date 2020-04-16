@@ -2,8 +2,8 @@ Get resource
 ---
   description: Give resource if the token is valide
   parameters:
-    - name: TOKEN
-      in: body
+    - name: token
+      in: path
       type: string
       required: true
   responses:

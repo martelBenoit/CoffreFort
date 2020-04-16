@@ -1,8 +1,11 @@
-# C'est le coffre fort !!!
+# COFFRE FORT
 
 ## Installation 
 
 ### Installation de docker sur debian
+
+C'est une installation type de docker sur une machine debian amd64.
+Il faut bien sur adapter cette installation à l'environnement de travail que vous possédez.
 
 ```bash
 sudo apt update
@@ -22,6 +25,8 @@ sudo apt install docker-ce
 
 ### Installation de docker-compose
 
+Etape d'installation de docker-compose. Cette installation fonctionne sur une machine debian.
+
 ```bash
 sudo curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
@@ -30,36 +35,44 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 ## Lancement du projet sur debian
 
-Pour lancer le projet la première fois (sur la racine du repo git) :
+> Les opérations suivantes se font sur la racine du projet.
+
+- Pour lancer le projet la première fois :
 ```bash
 sudo docker-compose build
 sudo docker-compose up
-# Pour arrêter les services 
-sudo docker-compose down 
 ```
 
-Les fois suivantes uniquement faire (toujours sur la racine du repo git) :
+- Si le projet à déja été construit une première fois uniquement faire :
 ```bash
 sudo docker-compose up
 ```
-Si vous modifiez un Dockerfile il faut absolument refaire un build du projet sinon vos modifications ne seront pas prises en comptes !
+
+- Pour arrêter les services du projet :
+```bash
+sudo docker-compose down
+```
+
+> Si vous modifiez un Dockerfile il faut absolument refaire un build du projet sinon vos modifications ne seront pas prises en comptes !
 
 ## Informations utiles
 
-### Pour aller sur le service mongo db une fois le projet lancé
+#### FRONT DE L'APP
+http://localhost:3000
+
+#### DOC API USER 
+http://localhost:5000/apidocs
+
+#### DOC API APR
+http://localhost:5200/apidocs
+
+#### TOKEN DEALER
+PORT 7000 : accessible uniquement par les APIs
+
+#### Pour aller sur le service mongo db une fois le projet lancé
 ```bash
 sudo docker exec -it coffrefort_mongodb_1 bash
 ```
 
-### Pour se rendre sur le front
-http://localhost:3000
-
-### API USER 
-Docs de l'API : http://localhost:5000/apidocs
-
-### API APR
-Docs de l'API : http://localhost:5200/apidocs
-
-### TOKEN DEALER
-PORT 7000 : accessible uniquement par les APIs
-
+---
+Auteurs : Yoann LE DREAN, Kieran LE PENDEVEN, Benoît MARTEL, Loïc TRAVAILLE
