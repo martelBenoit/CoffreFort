@@ -9,7 +9,6 @@ router.get('/', function(req, res){
     var token = req.session.token;
 
     if(login && req.session.loggedin==true) {
-      console.log('Beginning logout')
       
       // La requete est faite vers /api/logout et retourne la validation ou non de la deconnexion
       // et la raison en cas d'echec
