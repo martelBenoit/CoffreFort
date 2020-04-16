@@ -3,3 +3,4 @@ pymongo
 pyzmq
 jsonschema
 flasgger
+cryptography

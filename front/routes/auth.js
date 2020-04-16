@@ -1,5 +1,6 @@
 var express = require('express');
-const axios = require('axios')
+const axios = require('axios');
+const https = require('https');
 
 // on utilise le module Router du framework express
 var router = express.Router();
@@ -11,11 +12,17 @@ router.post('/', function(req, res) {
   var login = req.body.login;
   var password = req.body.password;
 
+  var options = {
+    httpsAgent: new https.Agent({
+      rejectUnauthorized: false
+    })
+  };
+
   // si le login et le mot de passe sont saisis
   if(login && password){
     const getAuth = async () => {
       try {
-        const resultat = await axios.get('http://' + login + ':' + password + '@apiusers:5000/api/token')
+        const resultat = await axios.get('https://' + login + ':' + password + '@apiusers:5000/api/token',options)
         if (resultat.data.token != "") {
           // on place la session a un été connecté
           req.session.loggedin = true;

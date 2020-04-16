@@ -38,5 +38,5 @@ def verify_token():
         
 # le serveur se lance et tourne sur localhost:5200
 if __name__ == '__main__':
-        app.run(host='0.0.0.0', port=5200, debug=True)
+        app.run(host='0.0.0.0', port=5200, debug=True, ssl_context='adhoc')
        

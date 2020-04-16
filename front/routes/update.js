@@ -1,5 +1,6 @@
 var express = require('express');
 const axios = require('axios');
+const https = require('https');
 
 var router = express.Router();
 
@@ -28,7 +29,10 @@ router.post('/', function(req,res){
         var verif = req.body.verif;
 
         const options = {
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json'},
+            httpsAgent: new https.Agent({
+              rejectUnauthorized: false
+            })
         };
 
         if(login && current && newpass && verif){
@@ -36,7 +40,7 @@ router.post('/', function(req,res){
                 const update = async () => {
                     try {
                         // La requete effectuee est PUT sur apiusers:5000/api/users/<login> avec auth BASIC
-                        const resultat = await axios.put('http://'+login+':'+current+'@apiusers:5000/api/users/'+login,
+                        const resultat = await axios.put('https://'+login+':'+current+'@apiusers:5000/api/users/'+login,
                         {
                             'PASSWORD' : newpass
                         },options

@@ -1,5 +1,6 @@
 var express = require('express');
 const axios = require('axios');
+const https = require('https');
 
 var router = express.Router();
 
@@ -22,12 +23,15 @@ router.post('/', function(req, res) {
     if(login && password){
 
       const options = {
-        headers: {'Content-Type': 'application/json'}
+        headers: {'Content-Type': 'application/json'},
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false
+        })
       };
 
       const register = async () => {
         try {
-          const resultat = await axios.post('http://apiusers:5000/api/users',
+          const resultat = await axios.post('https://apiusers:5000/api/users',
           {
             "LOGIN": login,
             "PASSWORD": password
