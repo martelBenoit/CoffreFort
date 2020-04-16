@@ -20,7 +20,8 @@ var app = express();
 app.use(session({
 	secret: 'secret',
 	resave: true,
-	saveUninitialized: true
+  saveUninitialized: true,
+  cookie: { secure: true, httpOnly: true}
 }));
 
 // view engine setup
